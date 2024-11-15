@@ -49,6 +49,8 @@ namespace okvis {
   // make 100% sure multithreading on
   int num_threads =torch::get_num_threads();
   torch::set_num_threads(numThreads);
+#else
+  (void)numThreads;
 #endif
   // convert image
   cv::Mat img2;

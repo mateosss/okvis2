@@ -1,6 +1,15 @@
 cmake_minimum_required(VERSION 3.8...3.30)
 project(okvis VERSION 2.0.0 LANGUAGES CXX)
 
+# Enable GPU if possible by default
+if(NOT DEFINED USE_GPU)
+  find_package(CUDA)
+  if(CUDA_FOUND)
+    message(STATUS "CUDA found, setting USE_GPU=ON.")
+    set(USE_GPU ON)
+  endif()
+endif()
+
 # options for build configuration
 option (USE_SYSTEM_BRISK
         "Use brisk via find_package rather than downloading it as part of okvis" OFF)
@@ -15,7 +24,7 @@ option (BUILD_TESTS
 option (BUILD_ROS2
         "Builds ros2 wrapper" ON)
 option (HAVE_LIBREALSENSE
-        "Use realsense as part of okvis" ON)
+        "Use realsense as part of okvis" OFF)
 option (USE_NN
         "Use keypoint classification as part of okvis, requires torch" ON)
 option (USE_GPU

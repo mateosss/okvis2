@@ -68,7 +68,7 @@ You will need to install the following dependencies,
         sudo apt install libopencv-dev
 
 * LibTorch: if you want to run the segmentation CNN to remove Sky points etc, install with
-  instructions from the link below. Get the C++ version with C++11 ABI with or without CUDA
+  instructions from the link below. Get the C++ version **with C++11 ABI** with or without CUDA
   (depending on availability on your machine):
 
     https://pytorch.org/get-started/locally/
@@ -77,8 +77,7 @@ You will need to install the following dependencies,
 
         export Torch_DIR=/path/to/libtorch
 
-    Furthermore, you can turn on the NVIDIA GPU to be used for inference, if you have one, with
-    `USE_GPU=ON`.
+    If CUDA is available, it will be used, you can disable it with `USE_GPU=OFF`.
 
     In case you absolutely do not want to use `LibTorch`, you may disable with `USE_NN=OFF`.
 
@@ -130,13 +129,12 @@ You will need to install the following dependencies,
         brew install opencv
 
 * LibTorch: if you want to run the segmentation CNN to remove Sky points etc, install with
-  instructions from the link below. Get the C++ version with C++11 ABI with or without CUDA
+  instructions from the link below. Get the C++ version **with C++11 ABI** with or without CUDA
   (depending on availability on your machine):
 
         brew install libtorch
 
-    Furthermore, you can turn on the NVIDIA GPU to be used for inference, if you have one, with
-    `USE_GPU=ON`.
+    If CUDA is available, it will be used, you can disable it with `USE_GPU=OFF`.
 
     In case you absolutely do not want to use `LibTorch`, you may disable with `USE_NN=OFF`. Also,
     in that case you'll really want to get OpenMP either with `brew` or by using LLVM that is
