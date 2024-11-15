@@ -1023,14 +1023,16 @@ void ThreadedSlam::stopThreading() {
   }
 }
 
-void ThreadedSlam::writeFinalTrajectoryCsv()
+void ThreadedSlam::writeFinalTrajectoryCsv(const std::string& alt_name)
 {
   // thread safety -- join running stuff
   stopThreading();
 
+  std::string filename = alt_name == "" ? finalTrajectoryCsvFileName_ : alt_name;
+  
   // trajectory writing
   if(!finalTrajectoryCsvFileName_.empty()) {
-    estimator_.writeFinalCsvTrajectory(finalTrajectoryCsvFileName_, rpg_);
+    estimator_.writeFinalCsvTrajectory(filename, rpg_);
   }
 }
 

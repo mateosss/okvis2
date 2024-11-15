@@ -151,7 +151,7 @@ class ThreadedSlam : public ViInterface {
   void stopThreading();
 
   /// \brief Writes the final trajectory CSV file.
-  void writeFinalTrajectoryCsv();
+  void writeFinalTrajectoryCsv(const std::string& alt_name = "");
 
   /// \brief Performs a final Bundle Adjustment.
   void doFinalBa();

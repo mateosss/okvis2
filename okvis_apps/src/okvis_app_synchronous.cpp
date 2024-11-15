@@ -164,6 +164,7 @@ int main(int argc, char **argv)
     if(!datasetReader->isStreaming()) {
       estimator.stopThreading();
       LOG(INFO) << "Finished!" << std::endl;
+      estimator.writeFinalTrajectoryCsv();
       if(parameters.estimator.do_final_ba) {
         LOG(INFO) << "final full BA...";
         cv::Mat topView;
@@ -174,8 +175,8 @@ int main(int argc, char **argv)
           cv::imwrite("okvis2_final_ba.png", topView);
         }
         cv::waitKey(1000);
+        estimator.writeFinalTrajectoryCsv(outpath + "." + mode + ".full.csv");
       }
-      estimator.writeFinalTrajectoryCsv();
       if(parameters.estimator.do_final_ba) {
         estimator.saveMap();
       }
