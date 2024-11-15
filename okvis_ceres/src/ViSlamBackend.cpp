@@ -1977,12 +1977,12 @@ bool ViSlamBackend::writeFinalCsvTrajectory(const std::string &csvFileName, bool
   if(rpg) {
     csvFile << "# timestamp tx ty tz qx qy qz qw" << std::endl;
   } else {
-    csvFile << "timestamp" << ", " << "p_WS_W_x" << ", " << "p_WS_W_y" << ", "
-               << "p_WS_W_z" << ", " << "q_WS_x" << ", " << "q_WS_y" << ", "
-               << "q_WS_z" << ", " << "q_WS_w" << ", " << "v_WS_W_x" << ", "
-               << "v_WS_W_y" << ", " << "v_WS_W_z" << ", " << "b_g_x" << ", "
-               << "b_g_y" << ", " << "b_g_z" << ", " << "b_a_x" << ", " << "b_a_y"
-               << ", " << "b_a_z" << std::endl;
+    csvFile << "#timestamp" << "," << "p_WS_W_x" << "," << "p_WS_W_y" << ","
+               << "p_WS_W_z" << "," << "q_WS_w" << "," << "q_WS_x" << ","
+               << "q_WS_y" << "," << "q_WS_z" << "," << "v_WS_W_x" << ","
+               << "v_WS_W_y" << "," << "v_WS_W_z" << "," << "b_g_x" << ","
+               << "b_g_y" << "," << "b_g_z" << "," << "b_a_x" << "," << "b_a_y"
+               << "," << "b_a_z" << std::endl;
   }
   for(auto iter=realtimeGraph_.anyState_.begin(); iter!=realtimeGraph_.anyState_.end(); ++iter) {
     Eigen::Vector3d p_WS_W;
@@ -2013,14 +2013,14 @@ bool ViSlamBackend::writeFinalCsvTrajectory(const std::string &csvFileName, bool
           << p_WS_W[0] << " " << p_WS_W[1] << " " << p_WS_W[2] << " "
           << q_WS.x() << " " << q_WS.y() << " " << q_WS.z() << " " << q_WS.w() << std::endl;
     } else {
-      csvFile << time.str() << ", " << std::scientific
-          << std::setprecision(18) << p_WS_W[0] << ", " << p_WS_W[1] << ", "
-          << p_WS_W[2] << ", " << q_WS.x() << ", " << q_WS.y() << ", "
-          << q_WS.z() << ", " << q_WS.w() << ", " << speedAndBiases[0] << ", "
-          << speedAndBiases[1] << ", " << speedAndBiases[2] << ", "
-          << speedAndBiases[3] << ", " << speedAndBiases[4] << ", "
-          << speedAndBiases[5] << ", " << speedAndBiases[6] << ", "
-          << speedAndBiases[7] << ", " << speedAndBiases[8] << ", "
+      csvFile << time.str() << "," << std::scientific
+          << std::setprecision(18) << p_WS_W[0] << "," << p_WS_W[1] << ","
+          << p_WS_W[2] << "," << q_WS.w() << "," << q_WS.x() << ","
+          << q_WS.y() << "," << q_WS.z() << "," << speedAndBiases[0] << ","
+          << speedAndBiases[1] << "," << speedAndBiases[2] << ","
+          << speedAndBiases[3] << "," << speedAndBiases[4] << ","
+          << speedAndBiases[5] << "," << speedAndBiases[6] << ","
+          << speedAndBiases[7] << "," << speedAndBiases[8] << ","
           << iter->second.keyframeId.value()<< std::endl;
     }
   }

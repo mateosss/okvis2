@@ -345,12 +345,12 @@ bool okvis::TrajectoryOutput::createCsvFile(
   if(rpg) {
     stream << "# timestamp tx ty tz qx qy qz qw" << std::endl;
   } else {
-    stream << "timestamp" << ", " << "p_WS_W_x" << ", " << "p_WS_W_y" << ", "
-           << "p_WS_W_z" << ", " << "q_WS_x" << ", " << "q_WS_y" << ", "
-           << "q_WS_z" << ", " << "q_WS_w" << ", " << "v_WS_W_x" << ", "
-           << "v_WS_W_y" << ", " << "v_WS_W_z" << ", " << "b_g_x" << ", "
-           << "b_g_y" << ", " << "b_g_z" << ", " << "b_a_x" << ", " << "b_a_y"
-           << ", " << "b_a_z" << std::endl;
+    stream << "#timestamp" << "," << "p_WS_W_x" << "," << "p_WS_W_y" << ","
+           << "p_WS_W_z" << "," << "q_WS_w" << "," << "q_WS_x" << ","
+           << "q_WS_y" << "," << "q_WS_z" << "," << "v_WS_W_x" << ","
+           << "v_WS_W_y" << "," << "v_WS_W_z" << "," << "b_g_x" << ","
+           << "b_g_y" << "," << "b_g_z" << "," << "b_a_x" << "," << "b_a_y"
+           << "," << "b_a_z" << std::endl;
   }
   return true;
 }
@@ -371,13 +371,13 @@ bool okvis::TrajectoryOutput::writeStateToCsv(
     std::stringstream time;
     time << state.timestamp.sec << std::setw(9)
          << std::setfill('0') <<  state.timestamp.nsec;
-    csvFile << time.str() << ", " << std::scientific
+    csvFile << time.str() << "," << std::scientific
             << std::setprecision(18)
-            << p_WS_W[0] << ", " << p_WS_W[1] << ", " << p_WS_W[2] << ", "
-            << q_WS.x() << ", " << q_WS.y() << ", " << q_WS.z() << ", " << q_WS.w() << ", "
-            << state.v_W[0] << ", " << state.v_W[1] << ", " << state.v_W[2] << ", "
-            << state.b_g[0] << ", " << state.b_g[1] << ", " << state.b_g[2] << ", "
-            << state.b_a[0] << ", " << state.b_a[1] << ", " << state.b_a[2] << ", " << std::endl;
+            << p_WS_W[0] << "," << p_WS_W[1] << "," << p_WS_W[2] << ","
+            << q_WS.w() << "," << q_WS.x() << "," << q_WS.y() << "," << q_WS.z() << ","
+            << state.v_W[0] << "," << state.v_W[1] << "," << state.v_W[2] << ","
+            << state.b_g[0] << "," << state.b_g[1] << "," << state.b_g[2] << ","
+            << state.b_a[0] << "," << state.b_a[1] << "," << state.b_a[2] << std::endl;
   }
   return true;
 }
