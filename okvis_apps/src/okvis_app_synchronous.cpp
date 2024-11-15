@@ -71,22 +71,17 @@ int main(int argc, char **argv)
   FLAGS_stderrthreshold = 0;  // INFO: 0, WARNING: 1, ERROR: 2, FATAL: 3
   FLAGS_colorlogtostderr = 1;
 
-  if (argc != 3 && argc != 4) {
+  if (argc != 5) {
     LOG(ERROR)<<
-    "Usage: ./" << argv[0] << " configuration-yaml-file dataset-folder [-rpg]/[-rgb]";
+    "Usage: " << argv[0] << " <small_voc.yml.gz parent dir> <yaml config file> <dataset mav0 dir> <output prefix>";
     return EXIT_FAILURE;
   }
 
   okvis::Duration deltaT(0.0);
   bool rpg = false;
-  if (argc == 4) {
-    if(strcmp(argv[3], "-rpg")==0) {
-      rpg = true;
-    }
-  }
 
   // read configuration file
-  std::string configFilename(argv[1]);
+  std::string configFilename(argv[2]);
 
   okvis::ViParametersReader viParametersReader(configFilename);
   okvis::ViParameters parameters;
@@ -94,7 +89,7 @@ int main(int argc, char **argv)
 
   // dataset reader
   // the folder path
-  std::string path(argv[2]);
+  std::string path(argv[3]);
   std::shared_ptr<okvis::DatasetReaderBase> datasetReader;
   if(rpg){
     datasetReader.reset(new okvis::RpgDatasetReader(
@@ -106,8 +101,7 @@ int main(int argc, char **argv)
   }
 
   // also check DBoW2 vocabulary
-  boost::filesystem::path executable(argv[0]);
-  std::string dBowVocDir = executable.remove_filename().string();
+  std::string dBowVocDir(argv[1]);
   std::ifstream infile(dBowVocDir+"/small_voc.yml.gz");
   if(!infile.good()) {
      LOG(ERROR)<<"DBoW2 vocaublary " << dBowVocDir << "/small_voc.yml.gz not found.";
@@ -126,13 +120,14 @@ int main(int argc, char **argv)
     mode = mode+"-calib";
   }
 
-  okvis::TrajectoryOutput writer(path+"/okvis2-" + mode + "_trajectory.csv", false);
+  std::string outpath(argv[4]);
+  okvis::TrajectoryOutput writer(outpath  + "." + mode + ".csv", false);
   estimator.setOptimisedGraphCallback(
         std::bind(&okvis::TrajectoryOutput::processState, &writer,
                   std::placeholders::_1, std::placeholders::_2, std::placeholders::_3,
                   std::placeholders::_4));
-  estimator.setFinalTrajectoryCsvFile(path+"/okvis2-" + mode + "-final_trajectory.csv");
-  estimator.setMapCsvFile(path+"/okvis2-" + mode + "-final_map.csv");
+  estimator.setFinalTrajectoryCsvFile(outpath + "." + mode + ".final.csv");
+  estimator.setMapCsvFile(outpath + "." + mode + ".finalmap.csv");
 
   // connect reader to estimator
   datasetReader->setImuCallback(
