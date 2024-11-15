@@ -1,0 +1,91 @@
+%YAML:1.0
+cameras:
+  - T_SC: [0.9174075807755737, 0.006647316356289734, -0.39789338260489987, -0.0836171207584613,
+      0.13777833942240095, 0.9327164187092706, 0.3332524740435679, -0.0019908210116357005,
+      0.37333692547284353, -0.36054943552224933, 0.8547652570285438, 0.005251507311936389,
+      0.0, 0.0, 0.0, 1.0]
+    camera_type: gray
+    distortion_coefficients: [0.07967334603430463, -0.028193800038563192, 0.20273128935703774,
+      -0.11691215909852215]
+    distortion_type: equidistant
+    focal_length: [268.7643797200632, 268.6254278509791]
+    image_dimension: [640, 480]
+    principal_point: [322.99894365261827, 245.85420172532994]
+    slam_use: okvis
+  - T_SC: [0.9183897385354933, 0.004662488271049342, 0.39564952844130963, 0.02184301895036105,
+      -0.15034835638878274, 0.929043591797278, 0.33804345322991297, -0.002049686931566472,
+      -0.3659995353602241, -0.3699408949326029, 0.853925098807012, 0.005005028649289218,
+      0.0, 0.0, 0.0, 1.0]
+    camera_type: gray
+    distortion_coefficients: [0.05921598747583376, 0.0008485613746588702, 0.18691042621700857,
+      -0.11581177928178256]
+    distortion_type: equidistant
+    focal_length: [270.38245569848516, 270.8952605677133]
+    image_dimension: [640, 480]
+    principal_point: [322.59133920842345, 250.7654767124812]
+    slam_use: okvis
+
+
+# additional camera parameters
+camera_parameters:
+    timestamp_tolerance: 0.005 # [s] stereo frame out-of-sync tolerance
+    sync_cameras: [0, 1] # the cameras that will be synchronised
+    image_delay: 0.00 # [s] timestamp_camera_correct = timestamp_camera - image_delay
+    online_calibration: # some parameters to set the online
+        do_extrinsics: false # Do we online-calibrate extrinsics?
+        do_extrinsics_final_ba: false # Do we calibrate extrinsics in final BA?
+        sigma_r: 0.01 # T_SCi position prior stdev [m]
+        sigma_alpha: 0.05 # T_SCi orientation prior stdev [rad]
+
+imu_parameters:
+    use: true
+    a_max: 176.0 # acceleration saturation [m/s^2]
+    g_max: 7.8 # gyro saturation [rad/s]
+    sigma_g_c: 20.0e-4 # gyro noise density [rad/s/sqrt(Hz)]
+    sigma_a_c: 20.0e-3 # accelerometer noise density [m/s^2/sqrt(Hz)]
+    sigma_bg: 0.01 # gyro bias prior [rad/s]
+    sigma_ba: 0.1 # accelerometer bias prior [m/s^2]
+    sigma_gw_c: 20.0e-5 # gyro drift noise density [rad/s^s/sqrt(Hz)]
+    sigma_aw_c: 20.0e-3 # accelerometer drift noise density [m/s^2/sqrt(Hz)]
+    g: 9.81007 # Earth's acceleration due to gravity [m/s^2]
+    g0: [ 0.0, 0.0, 0.0 ] # initial gyro bias [rad/s]
+    a0: [ -0.05, 0.09, 0.01 ] # initial accelerometer bias [m/s^2]
+    s_a: [1.0, 1.0, 1.0]
+    # transform Body-Sensor (IMU)
+    T_BS:
+        [1.0000, 0.0000, 0.0000, 0.0000,
+         0.0000, 1.0000, 0.0000, 0.0000,
+         0.0000, 0.0000, 1.0000, 0.0000,
+         0.0000, 0.0000, 0.0000, 1.0000]
+
+# frontend: detection etc.
+frontend_parameters:
+    detection_threshold: 35.0 #42.0 # detection threshold. By default the uniformity radius in pixels
+    absolute_threshold: 3000.0 # absolute Harris corner threshold (noise floor)
+    matching_threshold: 60.0 # BRISK descriptor matching threshold
+    octaves: 0 # number of octaves for detection. 0 means single-scale at highest resolution
+    max_num_keypoints: 700 # restrict to a maximum of this many keypoints per image (strongest ones)
+    keyframe_overlap: 0.60 # minimum field-of-view overlap
+    use_cnn: false # use the CNN (if available) to filter out dynamic content / sky
+    parallelise_detection: true # Run parallel detect & describe.
+    num_matching_threads: 4 # Parallelise matching with this number of threads.
+
+# estimator parameters
+estimator_parameters:
+    num_keyframes: 5 # number of keyframes in optimisation window
+    num_loop_closure_frames: 3 # number of loop closure frames in optimisation window
+    num_imu_frames: 3 # number of frames linked by most recent nonlinear IMU error terms
+    do_loop_closures: true # whether to do VI-SLAM or VIO
+    do_final_ba: true # Whether to run a full final BA
+    enforce_realtime: false # whether to limit the time budget for optimisation
+    realtime_min_iterations: 3 # minimum number of iterations always performed
+    realtime_max_iterations: 10 # never do more than these, even if not converged
+    realtime_time_limit: 0.035 # time budget for realtime optimisation [s]
+    realtime_num_threads: 3 # number of threads for the realtime optimisation
+    full_graph_iterations: 15 # don't do more than these for the full (background) optimisation
+    full_graph_num_threads: 3 # number of threads for the full (background) optimisation
+
+# some options for how and what to output
+output_parameters:
+    display_matches: false  # displays debug video and matches. May be slow.
+    display_overhead: false # debug overhead image. Is slow.
