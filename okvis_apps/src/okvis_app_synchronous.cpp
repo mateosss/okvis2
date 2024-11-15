@@ -90,6 +90,7 @@ int main(int argc, char **argv)
   // dataset reader
   // the folder path
   std::string path(argv[3]);
+  path = path + "/mav0/";
   std::shared_ptr<okvis::DatasetReaderBase> datasetReader;
   if(rpg){
     datasetReader.reset(new okvis::RpgDatasetReader(
@@ -121,6 +122,13 @@ int main(int argc, char **argv)
   }
 
   std::string outpath(argv[4]);
+  
+  // Create outpath parent if it doesnt exist with create_directories
+  boost::filesystem::path outpath_parent = boost::filesystem::path(outpath).parent_path();
+  if (!boost::filesystem::exists(outpath_parent)) {
+    boost::filesystem::create_directories(outpath_parent);
+  }
+  
   okvis::TrajectoryOutput writer(outpath  + "." + mode + ".csv", false);
   estimator.setOptimisedGraphCallback(
         std::bind(&okvis::TrajectoryOutput::processState, &writer,
@@ -156,7 +164,7 @@ int main(int argc, char **argv)
     if(!images.empty() || !topView.empty()) {
       char b = cv::waitKey(2);
       if (b == 's') {
-        cv::imwrite("saved.png", topView);
+        // cv::imwrite("saved.png", topView);
       }
     }
 
@@ -172,13 +180,13 @@ int main(int argc, char **argv)
         writer.drawTopView(topView);
         if (!topView.empty()) {
           cv::imshow("OKVIS 2 Top View Final", topView);
-          cv::imwrite("okvis2_final_ba.png", topView);
+          // cv::imwrite("okvis2_final_ba.png", topView);
         }
         cv::waitKey(1000);
         estimator.writeFinalTrajectoryCsv(outpath + "." + mode + ".full.csv");
       }
       if(parameters.estimator.do_final_ba) {
-        estimator.saveMap();
+        // estimator.saveMap();
       }
       LOG(INFO) <<"total processing time " << (okvis::Time::now() - startTime) << " s" << std::endl;
       break;
