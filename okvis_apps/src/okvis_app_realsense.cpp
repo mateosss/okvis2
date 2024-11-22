@@ -161,14 +161,18 @@ int main(int argc, char **argv) {
       for(const auto & image : images) {
         cv::imshow(image.first, image.second);
       }
-      cv::Mat topView;
-      writer.drawTopView(topView);
-      if(!topView.empty()) {
-        cv::imshow("OKVIS 2 Top View", topView);
-      }
-      int pressed = cv::waitKey(2);
-      if(pressed=='q' || shtdown) {
-        break;
+      
+      writer.flushStates();
+      if (parameters.output.display_topview) {
+        cv::Mat topView;
+        writer.drawTopView(topView);
+        if(!topView.empty()) {
+          cv::imshow("OKVIS 2 Top View", topView);
+        }
+        int pressed = cv::waitKey(2);
+        if(pressed=='q' || shtdown) {
+          break;
+        }
       }
     }
     // Stop the pipeline
@@ -178,13 +182,16 @@ int main(int argc, char **argv) {
     // final BA if needed
     if(parameters.estimator.do_final_ba) {
       LOG(INFO) << "final full BA...";
-      cv::Mat topView;
       estimator.doFinalBa();
-      writer.drawTopView(topView);
-      if (!topView.empty()) {
-        cv::imshow("OKVIS 2 Top View Final", topView);
+      writer.flushStates();
+      if (parameters.output.display_topview) {
+        cv::Mat topView;
+        writer.drawTopView(topView);
+        if (!topView.empty()) {
+          cv::imshow("OKVIS 2 Top View Final", topView);
+        }
+        cv::waitKey(1000);
       }
-      cv::waitKey(1000);
     }
   }
 

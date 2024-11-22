@@ -125,10 +125,10 @@ int main(int argc, char **argv)
   
   // Create outpath parent if it doesnt exist with create_directories
   boost::filesystem::path outpath_parent = boost::filesystem::path(outpath).parent_path();
-  if (!boost::filesystem::exists(outpath_parent)) {
+  if (!boost::filesystem::exists(outpath_parent) && outpath_parent.string() != "") {  
     boost::filesystem::create_directories(outpath_parent);
   }
-  
+
   okvis::TrajectoryOutput writer(outpath  + "." + mode + ".csv", false);
   estimator.setOptimisedGraphCallback(
         std::bind(&okvis::TrajectoryOutput::processState, &writer,
@@ -149,6 +149,7 @@ int main(int argc, char **argv)
   okvis::Time startTime = okvis::Time::now();
   datasetReader->startStreaming();
   int progress = 0;
+  std::chrono::steady_clock::time_point last_progress_ts = std::chrono::steady_clock::now();
   while (true) {
     estimator.processFrame();
     std::map<std::string, cv::Mat> images;
@@ -156,11 +157,16 @@ int main(int argc, char **argv)
     for(const auto & image : images) {
       cv::imshow(image.first, image.second);
     }
+
+    writer.flushStates();
     cv::Mat topView;
-    writer.drawTopView(topView);
-    if(!topView.empty()) {
-      cv::imshow("OKVIS 2 Top View", topView);
+    if (parameters.output.display_topview) {
+      writer.drawTopView(topView);
+      if(!topView.empty()) {
+        cv::imshow("OKVIS 2 Top View", topView);
+      }
     }
+
     if(!images.empty() || !topView.empty()) {
       char b = cv::waitKey(2);
       if (b == 's') {
@@ -175,14 +181,19 @@ int main(int argc, char **argv)
       estimator.writeFinalTrajectoryCsv();
       if(parameters.estimator.do_final_ba) {
         LOG(INFO) << "final full BA...";
-        cv::Mat topView;
         estimator.doFinalBa();
-        writer.drawTopView(topView);
-        if (!topView.empty()) {
-          cv::imshow("OKVIS 2 Top View Final", topView);
-          // cv::imwrite("okvis2_final_ba.png", topView);
+
+        writer.flushStates();
+        if (parameters.output.display_topview) {
+          cv::Mat topView;
+          writer.drawTopView(topView);
+          if (!topView.empty()) {
+            cv::imshow("OKVIS 2 Top View Final", topView);
+            // cv::imwrite("okvis2_final_ba.png", topView);
+          }
+          cv::waitKey(1000);
         }
-        cv::waitKey(1000);
+
         estimator.writeFinalTrajectoryCsv(outpath + "." + mode + ".full.csv");
       }
       if(parameters.estimator.do_final_ba) {
@@ -201,7 +212,11 @@ int main(int argc, char **argv)
 #endif
     if (newProgress>progress) {
       progress = newProgress;
-      LOG(INFO) << "Progress: " << progress << "% ";
+      auto now_ts = std::chrono::steady_clock::now();
+      double percsec = 1.0 / std::chrono::duration_cast<std::chrono::seconds>(now_ts - last_progress_ts).count();
+      last_progress_ts = now_ts;
+      double eta = double(100 - progress) / percsec;
+      LOG(INFO) << "Progress: " << progress << "% (" << percsec <<" [1%/s], ETA: " << eta << "s)";
     }
   }
   return EXIT_SUCCESS;

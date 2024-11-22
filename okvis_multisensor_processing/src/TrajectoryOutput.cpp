@@ -104,14 +104,13 @@ bool okvis::TrajectoryOutput::processRGBImage(const okvis::Time& timestamp, cons
   return true;
 }
 
-void okvis::TrajectoryOutput::drawTopView(cv::Mat& outImg) {
-  std::shared_ptr<GraphStates> graphStates;
-  while(states_.PopNonBlocking(&graphStates)) {
+void okvis::TrajectoryOutput::flushStates() {
+  while(states_.PopNonBlocking(&_graphStates)) {
 
     // do the update here to avoid race conditions
     std::set<okvis::StateId> affectedStateIds;
-    trajectory_.update(std::get<1>(*graphStates), std::get<2>(*graphStates), affectedStateIds);
-    State state = std::get<0>(*graphStates);
+    trajectory_.update(std::get<1>(*_graphStates), std::get<2>(*_graphStates), affectedStateIds);
+    State &state = std::get<0>(*_graphStates);
 
     // also propagate IMU, if requested
     if(states_.Empty()) {
@@ -126,6 +125,15 @@ void okvis::TrajectoryOutput::drawTopView(cv::Mat& outImg) {
         }
       }
     }
+  }
+}
+
+void okvis::TrajectoryOutput::drawTopView(cv::Mat& outImg) {
+    if (_graphStates == nullptr) {
+      return;
+    }
+    
+    State &state = std::get<0>(*_graphStates);
 
     // append the path
     Eigen::Vector3d r = state.T_WS.r();
@@ -152,7 +160,7 @@ void okvis::TrajectoryOutput::drawTopView(cv::Mat& outImg) {
     _image.setTo(cv::Scalar(10, 10, 10));
 
     // First the landmarks
-    const MapPointVector& landmarks = *std::get<3>(*graphStates);
+    const MapPointVector& landmarks = *std::get<3>(*_graphStates);
     for(const auto & lm : landmarks) {
       if(fabs(lm.point[3])<1e-12) continue;
       if(lm.quality<0.0001) continue;
@@ -214,7 +222,7 @@ void okvis::TrajectoryOutput::drawTopView(cv::Mat& outImg) {
                   cv::FONT_HERSHEY_COMPLEX, 0.5, cv::Scalar(255,255,255), 1, cv::LINE_AA);
 
     // Quality
-    const TrackingState& tracking = std::get<1>(*graphStates);
+    const TrackingState& tracking = std::get<1>(*_graphStates);
     cv::Scalar trackingColour;
     if(tracking.trackingQuality == TrackingQuality::Lost) {
       trackingColour = cv::Scalar(0,0,255);
@@ -261,7 +269,6 @@ void okvis::TrajectoryOutput::drawTopView(cv::Mat& outImg) {
 
     // output
     outImg = _image;
-  }
 }
 
 cv::Point2d okvis::TrajectoryOutput::convertToImageCoordinates(

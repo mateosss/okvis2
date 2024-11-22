@@ -124,6 +124,9 @@ public:
    */
   bool processRGBImage(const okvis::Time &, const cv::Mat &);
 
+  /// \brief Flush states_ queue.
+  void flushStates();
+
   /// \brief Draw the top view now.
   /// \param outImg The output image to draw into.
   void drawTopView(cv::Mat & outImg);
@@ -143,6 +146,7 @@ private:
   threadsafe::Queue<std::shared_ptr<GraphStates>> states_; ///< Graph states.
   threadsafe::Queue<ImuMeasurement> imuMeasurements_; ///< Graph states.
 
+  std::shared_ptr<GraphStates> _graphStates{}; ///< Latest from @p states_ queue
   cv::Mat _image; ///< Image.
   int _imageSize = 500; ///< Pixel size of the image.
   std::vector<cv::Point2d> _path; ///< Path in 2d.

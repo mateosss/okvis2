@@ -156,6 +156,7 @@ struct EstimatorParameters {
 struct OutputParameters {
     bool display_matches; ///< Displays debug video and matches. May be slow.
     bool display_overhead; ///< Debug overhead image. Is slow.
+    bool display_topview; ///< Debug topview image. It is slow.
 };
 
 

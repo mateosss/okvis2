@@ -276,6 +276,8 @@ void ViParametersReader::readConfigFile(const std::string& filename) {
              viParameters_.output.display_matches);
   parseEntry(file["output_parameters"], "display_overhead",
              viParameters_.output.display_overhead);
+  parseEntry(file["output_parameters"], "display_topview",
+             viParameters_.output.display_topview);
 
   // done!
   readConfigFile_ = true;
