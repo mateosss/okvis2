@@ -190,6 +190,7 @@ In order to run a minimal working example, follow the steps below:
 2. Run the app as
 
          ./okvis_app_synchronous <path/to/euroc.yaml> <path/to/MH_01_easy/mav0/>
+         ./okvis_app_synchronous ../config/msdmg_kb4_vio.yaml MGO11_short_3_backandforth/mav0
 
      If you built with librealsense installed, you can connect a Realsense D455 (or D435i) and run
 
