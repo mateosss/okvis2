@@ -3,3 +3,13 @@
 /documentation
 .cache
 .vscode
+M*/mav0/*
+!M*/mav0/cam0/
+M*/mav0/cam0/*
+!M*/mav0/cam0/data.csv
+in.csv
+out.csv
+output.log
+resultsA
+resultsB
+resultsC
