@@ -37,6 +37,8 @@
  * @author Andreas Forster
  */
 
+#include <cstdio>
+#include <fstream>
 #include <map>
 
 #include <pthread.h>
@@ -70,6 +72,12 @@ ThreadedSlam::ThreadedSlam(ViParameters &parameters, std::string dBowDir) :
 {
   setBlocking(false);
   init();
+  printf(">>> Create in.csv\n");
+  printf(">>> Create out.csv\n");
+  incsv = std::ofstream{"in.csv"};
+  outcsv = std::ofstream{"out.csv"};
+  incsv << "#t_ns,in_ts" << std::endl;
+  outcsv << "#t_ns,out_ts" << std::endl;
 
   ///// HACK: multi-session and multi-agent //////
   //frontend_.loadComponent(
@@ -134,6 +142,11 @@ ThreadedSlam::~ThreadedSlam()
 
   // shutdown and join threads
   stopThreading();
+  printf(">>> Close in.csv\n");
+  incsv.close();
+  printf(">>> Close out.csv\n");
+  outcsv.close();
+
 }
 
 // Add a new image.
@@ -325,6 +338,10 @@ bool ThreadedSlam::processFrame() {
 
       return false;
     }
+    int64_t t_ns = multiFrame->timestamp().toNSec();
+    int64_t in_ns = std::chrono::steady_clock::now().time_since_epoch().count();
+    incsv << t_ns << "," << in_ns << std::endl;
+
     // now get all relevant IMU measurements we have received thus far
     if(parameters_.imu.use) {
       while(!shutdown_ && imuMeasurementDeque_.back().timeStamp <
@@ -801,6 +818,9 @@ void ThreadedSlam::optimisePublishMarginalise(MultiFramePtr multiFrame,
         size_t(parameters_.estimator.num_loop_closure_frames),
     size_t(parameters_.estimator.num_imu_frames), affectedStates_, expand);
   marginaliseTimer.stop();
+  int64_t t_ns = multiFrame->timestamp().toNSec();
+  int64_t out_ns = std::chrono::steady_clock::now().time_since_epoch().count();
+  outcsv << t_ns << "," << out_ns << std::endl;
 }
 
 // Loop to process visualisations.

@@ -266,6 +266,8 @@ private:
 
   std::atomic_bool shutdown_; ///< Has shutdown been called?
 
+  std::ofstream incsv{};
+  std::ofstream outcsv{};
 };
 
 }  // namespace okvis
