@@ -26,7 +26,7 @@ option (BUILD_ROS2
 option (HAVE_LIBREALSENSE
         "Use realsense as part of okvis" OFF)
 option (USE_NN
-        "Use keypoint classification as part of okvis, requires torch" ON)
+        "Use keypoint classification as part of okvis, requires torch" OFF)
 option (USE_GPU
         "Use keypoint classification with GPU inference, requires torch with Cuda" OFF)
 option (DO_TIMING
@@ -36,6 +36,7 @@ option (BUILD_SHARED_LIBS
 
 set(OKVIS_CXX_STANDARD 17)
 set(OKVIS_PUBLIC_CXX_FLAGS)
+set(CMAKE_BUILD_TYPE Release)
 if(APPLE)
   set(OKVIS_PRIVATE_CXX_FLAGS -Wall -Wpedantic -Wextra -Wno-dtor-name)
 else()

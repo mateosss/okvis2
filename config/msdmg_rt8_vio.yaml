@@ -104,7 +104,7 @@ estimator_parameters:
     num_imu_frames: 3 # number of frames linked by most recent nonlinear IMU error terms
     do_loop_closures: false # whether to do VI-SLAM or VIO
     do_final_ba: false # Whether to run a full final BA
-    enforce_realtime: false # whether to limit the time budget for optimisation
+    enforce_realtime: true # whether to limit the time budget for optimisation
     realtime_min_iterations: 3 # minimum number of iterations always performed
     realtime_max_iterations: 10 # never do more than these, even if not converged
     realtime_time_limit: 0.035 # time budget for realtime optimisation [s]
@@ -116,4 +116,4 @@ estimator_parameters:
 output_parameters:
     display_matches: false  # displays debug video and matches. May be slow.
     display_overhead: false # debug overhead image. Is slow.
-    display_topview: true
+    display_topview: false
