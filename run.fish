@@ -3,6 +3,83 @@
 export msdmg_config=config/msdmg_rt8_vio.yaml
 export msdmo_config=config/msdmo_rt8_vio.yaml
 export msdmi_config=config/msdmi_kb4_vio.yaml
+export euroc_config=config/euroc.yaml
+export tumvi_config=config/tumvi_slam_512.yaml
+
+export euroc=/storage/local/ssd/mayom/Documents/apps/datasets/euroc
+export tumvi=/storage/local/ssd/mayom/Documents/apps/datasets/tumvi
+
+./build/okvis_app_synchronous resources $euroc_config $euroc/MH_01_easy resultsA/EMH01/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EMH01/
+./build/okvis_app_synchronous resources $euroc_config $euroc/MH_01_easy resultsA/EMH01/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EMH01/
+./build/okvis_app_synchronous resources $euroc_config $euroc/MH_01_easy resultsA/EMH01/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EMH01/
+
+./build/okvis_app_synchronous resources $euroc_config $euroc/MH_02_easy resultsA/EMH02/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EMH02/
+./build/okvis_app_synchronous resources $euroc_config $euroc/MH_02_easy resultsA/EMH02/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EMH02/
+./build/okvis_app_synchronous resources $euroc_config $euroc/MH_02_easy resultsA/EMH02/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EMH02/
+
+./build/okvis_app_synchronous resources $euroc_config $euroc/MH_03_medium resultsA/EMH03/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EMH03/
+./build/okvis_app_synchronous resources $euroc_config $euroc/MH_03_medium resultsA/EMH03/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EMH03/
+./build/okvis_app_synchronous resources $euroc_config $euroc/MH_03_medium resultsA/EMH03/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EMH03/
+
+./build/okvis_app_synchronous resources $euroc_config $euroc/MH_04_difficult resultsA/EMH04/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EMH04/
+./build/okvis_app_synchronous resources $euroc_config $euroc/MH_04_difficult resultsA/EMH04/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EMH04/
+./build/okvis_app_synchronous resources $euroc_config $euroc/MH_04_difficult resultsA/EMH04/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EMH04/
+
+./build/okvis_app_synchronous resources $euroc_config $euroc/MH_05_difficult resultsA/EMH05/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EMH05/
+./build/okvis_app_synchronous resources $euroc_config $euroc/MH_05_difficult resultsA/EMH05/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EMH05/
+./build/okvis_app_synchronous resources $euroc_config $euroc/MH_05_difficult resultsA/EMH05/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EMH05/
+
+./build/okvis_app_synchronous resources $euroc_config $euroc/V1_01_easy resultsA/EV101/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EV101/
+./build/okvis_app_synchronous resources $euroc_config $euroc/V1_01_easy resultsA/EV101/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EV101/
+./build/okvis_app_synchronous resources $euroc_config $euroc/V1_01_easy resultsA/EV101/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EV101/
+
+./build/okvis_app_synchronous resources $euroc_config $euroc/V1_02_medium resultsA/EV102/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EV102/
+./build/okvis_app_synchronous resources $euroc_config $euroc/V1_02_medium resultsA/EV102/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EV102/
+./build/okvis_app_synchronous resources $euroc_config $euroc/V1_02_medium resultsA/EV102/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EV102/
+
+./build/okvis_app_synchronous resources $euroc_config $euroc/V1_03_difficult resultsA/EV103/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EV103/
+./build/okvis_app_synchronous resources $euroc_config $euroc/V1_03_difficult resultsA/EV103/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EV103/
+./build/okvis_app_synchronous resources $euroc_config $euroc/V1_03_difficult resultsA/EV103/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EV103/
+
+./build/okvis_app_synchronous resources $euroc_config $euroc/V2_01_easy resultsA/EV201/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EV201/
+./build/okvis_app_synchronous resources $euroc_config $euroc/V2_01_easy resultsA/EV201/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EV201/
+./build/okvis_app_synchronous resources $euroc_config $euroc/V2_01_easy resultsA/EV201/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EV201/
+
+./build/okvis_app_synchronous resources $euroc_config $euroc/V2_02_medium resultsA/EV202/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EV202/
+./build/okvis_app_synchronous resources $euroc_config $euroc/V2_02_medium resultsA/EV202/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EV202/
+./build/okvis_app_synchronous resources $euroc_config $euroc/V2_02_medium resultsA/EV202/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EV202/
+
+./build/okvis_app_synchronous resources $euroc_config $euroc/V2_03_difficult resultsA/EV203/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EV203/
+./build/okvis_app_synchronous resources $euroc_config $euroc/V2_03_difficult resultsA/EV203/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EV203/
+./build/okvis_app_synchronous resources $euroc_config $euroc/V2_03_difficult resultsA/EV203/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/EV203/
+
+sendemail.sh '[1/6] OKVIS2 euroc Finished' 'More remain'
+
+./build/okvis_app_synchronous resources $tumvi_config $tumvi/dataset-room1_512_16 resultsA/TR1/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/TR1/
+./build/okvis_app_synchronous resources $tumvi_config $tumvi/dataset-room1_512_16 resultsA/TR1/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/TR1/
+./build/okvis_app_synchronous resources $tumvi_config $tumvi/dataset-room1_512_16 resultsA/TR1/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/TR1/
+
+./build/okvis_app_synchronous resources $tumvi_config $tumvi/dataset-room2_512_16 resultsA/TR2/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/TR2/
+./build/okvis_app_synchronous resources $tumvi_config $tumvi/dataset-room2_512_16 resultsA/TR2/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/TR2/
+./build/okvis_app_synchronous resources $tumvi_config $tumvi/dataset-room2_512_16 resultsA/TR2/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/TR2/
+
+./build/okvis_app_synchronous resources $tumvi_config $tumvi/dataset-room3_512_16 resultsA/TR3/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/TR3/
+./build/okvis_app_synchronous resources $tumvi_config $tumvi/dataset-room3_512_16 resultsA/TR3/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/TR3/
+./build/okvis_app_synchronous resources $tumvi_config $tumvi/dataset-room3_512_16 resultsA/TR3/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/TR3/
+
+./build/okvis_app_synchronous resources $tumvi_config $tumvi/dataset-room4_512_16 resultsA/TR4/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/TR4/
+./build/okvis_app_synchronous resources $tumvi_config $tumvi/dataset-room4_512_16 resultsA/TR4/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/TR4/
+./build/okvis_app_synchronous resources $tumvi_config $tumvi/dataset-room4_512_16 resultsA/TR4/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/TR4/
+
+./build/okvis_app_synchronous resources $tumvi_config $tumvi/dataset-room5_512_16 resultsA/TR5/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/TR5/
+./build/okvis_app_synchronous resources $tumvi_config $tumvi/dataset-room5_512_16 resultsA/TR5/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/TR5/
+./build/okvis_app_synchronous resources $tumvi_config $tumvi/dataset-room5_512_16 resultsA/TR5/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/TR5/
+
+./build/okvis_app_synchronous resources $tumvi_config $tumvi/dataset-room6_512_16 resultsA/TR6/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/TR6/
+./build/okvis_app_synchronous resources $tumvi_config $tumvi/dataset-room6_512_16 resultsA/TR6/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/TR6/
+./build/okvis_app_synchronous resources $tumvi_config $tumvi/dataset-room6_512_16 resultsA/TR6/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/TR6/
+
+sendemail.sh '[2/6] OKVIS2 tumvi Finished' 'More remain'
 
 while not test -e MGO01_exists; sleep 1; echo "waiting for MGO01_exists"; end
 ./build/okvis_app_synchronous resources $msdmg_config MGO01_low_light resultsA/MGO01/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/MGO01/
@@ -94,7 +171,7 @@ while not test -e MGO15_exists; sleep 1; echo "waiting for MGO15_exists"; end
 ./build/okvis_app_synchronous resources $msdmg_config MGO15_seated_screen resultsC/MGO15/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsC/MGO15/
 rm -rf MGO15*
 
-sendemail.sh '[1/4] OKVIS2 MGO Finished' 'More remain'
+sendemail.sh '[3/6] OKVIS2 MGO Finished' 'More remain'
 
 while not test -e MOO01_exists; sleep 1; echo "waiting for MOO01_exists"; end
 ./build/okvis_app_synchronous resources $msdmo_config MOO01_hand_puncher_1 resultsA/MOO01/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/MOO01/
@@ -192,7 +269,7 @@ while not test -e MOO16_exists; sleep 1; echo "waiting for MOO16_exists"; end
 ./build/okvis_app_synchronous resources $msdmo_config MOO16_still resultsC/MOO16/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsC/MOO16/
 rm -rf MOO16*
 
-sendemail.sh '[2/4] OKVIS2 MOO Finished' 'More remain'
+sendemail.sh '[4/6] OKVIS2 MOO Finished' 'More remain'
 
 while not test -e MIO01_exists; sleep 1; echo "waiting for MIO01_exists"; end
 ./build/okvis_app_synchronous resources $msdmi_config MIO01_hand_puncher_1 resultsA/MIO01/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/MIO01/
@@ -290,7 +367,7 @@ while not test -e MIO16_exists; sleep 1; echo "waiting for MIO16_exists"; end
 ./build/okvis_app_synchronous resources $msdmi_config MIO16_moving_screens_person_props resultsC/MIO16/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsC/MIO16/
 rm -rf MIO16*
 
-sendemail.sh '[3/4] OKVIS2 MIO Finished' 'More remain'
+sendemail.sh '[5/6] OKVIS2 MIO Finished' 'More remain'
 
 while not test -e MIPB01_exists; sleep 1; echo "waiting for MIPB01_exists"; end
 ./build/okvis_app_synchronous resources $msdmi_config MIPB01_beatsaber_100bills_360_normal resultsA/MIPB01/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsA/MIPB01/
@@ -394,4 +471,4 @@ while not test -e MIPT03_exists; sleep 1; echo "waiting for MIPT03_exists"; end
 ./build/okvis_app_synchronous resources $msdmi_config MIPT03_thrillofthefight_fight_2 resultsC/MIPT03/tracking 2>&1 | tee output.log; mv in.csv out.csv output.log resultsC/MIPT03/
 rm -rf MIPT03*
 
-sendemail.sh '[4/4] OKVIS2 finished all runs' 'All done'
+sendemail.sh '[6/6] OKVIS2 finished all runs' 'All done'
