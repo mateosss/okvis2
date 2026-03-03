@@ -38,7 +38,7 @@ camera_parameters:
         sigma_alpha: 0.05 # T_SCi orientation prior stdev [rad]
 
 imu_parameters:
-    use: true
+    use: false
     a_max: 176.0 # acceleration saturation [m/s^2]
     g_max: 7.8 # gyro saturation [rad/s]
     sigma_g_c: 20.0e-4 # gyro noise density [rad/s/sqrt(Hz)]
@@ -75,7 +75,7 @@ estimator_parameters:
     num_keyframes: 5 # number of keyframes in optimisation window
     num_loop_closure_frames: 3 # number of loop closure frames in optimisation window
     num_imu_frames: 3 # number of frames linked by most recent nonlinear IMU error terms
-    do_loop_closures: true # whether to do VI-SLAM or VIO
+    do_loop_closures: false # whether to do VI-SLAM or VIO
     do_final_ba: true # Whether to run a full final BA
     enforce_realtime: false # whether to limit the time budget for optimisation
     realtime_min_iterations: 3 # minimum number of iterations always performed
@@ -89,4 +89,4 @@ estimator_parameters:
 output_parameters:
     display_matches: false  # displays debug video and matches. May be slow.
     display_overhead: false # debug overhead image. Is slow.
-    display_topview: true
+    display_topview: false

@@ -39,7 +39,7 @@ camera_parameters:
         sigma_alpha: 0.005 # T_SCi orientation prior stdev [rad]
 
 imu_parameters:
-    use: true
+    use: false
     a_max: 176.0 # acceleration saturation [m/s^2]
     g_max: 7.8 # gyro saturation [rad/s]
     sigma_g_c: 0.004 # gyro noise density [rad/s/sqrt(Hz)]
@@ -67,7 +67,7 @@ frontend_parameters:
     octaves: 0 # number of octaves for detection. 0 means single-scale at highest resolution
     max_num_keypoints: 1000 # restrict to a maximum of this many keypoints per image (strongest ones)
     keyframe_overlap: 0.65 # minimum field-of-view overlap
-    use_cnn: true # use the CNN (if available) to filter out dynamic content / sky
+    use_cnn: false # use the CNN (if available) to filter out dynamic content / sky
     parallelise_detection: true # Run parallel detect & describe.
     num_matching_threads: 1 # Parallelise matching with this number of threads.
 
@@ -90,4 +90,4 @@ estimator_parameters:
 output_parameters:
     display_matches: true  # displays debug video and matches. May be slow.
     display_overhead: false # debug overhead image. Is slow.
-    display_topview: true
+    display_topview: false
